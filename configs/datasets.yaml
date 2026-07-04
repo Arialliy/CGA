@@ -5,9 +5,17 @@ datasets:
     mask_dir: masks
     list_dir: img_idx
     splits:
-      train: train_NUDT-SIRST.txt
-      test: test_NUDT-SIRST.txt
-      hcval: hcval_NUDT-SIRST.txt
+      train:
+        file: train_NUDT-SIRST.txt
+        required: true
+      test:
+        file: test_NUDT-SIRST.txt
+        required: true
+      hcval:
+        file: hcval_NUDT-SIRST.txt
+        required: true
+        source_required: true
+        claim_role: hard_clutter_validation
     expected_counts:
       train: null
       test: null

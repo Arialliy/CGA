@@ -1,13 +1,11 @@
 {
   "dataset_name": "NUDT-SIRST",
-  "dataset_registry_sha256": "ca5bb1ef36be80846ef5449ac64e710d85070a0742ca3c6587f7b2ad62ec5d41",
+  "dataset_registry_sha256": "35a47e28b8063cf5353c5d2caabce08b141731e079abad8591a0a27d24bae188",
   "dataset_root": "/home/AAAI/OHCM-MSHNet-main/datasets/NUDT-SIRST",
-  "decision": "STOP_NEW_REPO_CGA_V2_AT_DATASET_PREFLIGHT",
+  "decision": "DATASET_PREFLIGHT_PASS",
   "duplicate_item_count": 0,
   "empty_mask_files": 0,
-  "errors": [
-    "missing_hcval_list"
-  ],
+  "errors": [],
   "examples": {
     "empty_mask_files": [],
     "illegal_mask_value_files": [],
@@ -15,21 +13,30 @@
     "missing_masks": [],
     "size_mismatch": [],
     "unreadable_images": [],
-    "unreadable_masks": []
+    "unreadable_masks": [],
+    "zero_byte_images": [],
+    "zero_byte_masks": []
   },
   "gate": "Gate-CGA-v2-P1-dataset-preflight",
-  "gate_pass": false,
-  "hcval_count": 0,
-  "hcval_list_sha256": null,
+  "gate_pass": true,
+  "hcval_count": 6,
+  "hcval_list_sha256": "bb0cd989def5651f222ae5d3d7d3fd400364a9e016b22dceb95258895fd4f85e",
   "illegal_mask_value_files": 0,
+  "missing_hcval_list": false,
   "missing_images": 0,
   "missing_masks": 0,
+  "missing_required_splits": [],
   "size_mismatch": 0,
   "test_count": 664,
+  "test_hcval_overlap_count": 6,
   "test_list_sha256": "a463c52ee64b1c803c4a322fe090aaf6bc360844898e3943bb7c64a8e551b86e",
   "train_count": 663,
+  "train_hcval_overlap_count": 0,
   "train_list_sha256": "e0a79f7c3d42548ba7d7dad9d2d336012b63a6bc5081e89e286f0f45036f8ec3",
   "train_test_overlap_count": 0,
   "unreadable_images": 0,
-  "unreadable_masks": 0
+  "unreadable_masks": 0,
+  "zero_byte_examples": [],
+  "zero_byte_images": 0,
+  "zero_byte_masks": 0
 }

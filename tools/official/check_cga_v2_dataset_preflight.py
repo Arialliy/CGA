@@ -17,6 +17,7 @@ from dataset import (
     normalize_item_id,
     resolve_item_paths,
     sha256_file,
+    split_spec,
     split_path,
 )
 
@@ -46,6 +47,8 @@ def _inspect_pair(
     row = {
         "missing_images": 0,
         "missing_masks": 0,
+        "zero_byte_images": 0,
+        "zero_byte_masks": 0,
         "unreadable_images": 0,
         "unreadable_masks": 0,
         "size_mismatch": 0,
@@ -57,6 +60,12 @@ def _inspect_pair(
         return row
     if not mask_path.exists():
         row["missing_masks"] = 1
+        return row
+    if image_path.stat().st_size == 0:
+        row["zero_byte_images"] = 1
+        return row
+    if mask_path.stat().st_size == 0:
+        row["zero_byte_masks"] = 1
         return row
     try:
         image = _open_gray(image_path)
@@ -91,12 +100,14 @@ def run_preflight(dataset_dir: Path, dataset_name: str, registry_path: Path) -> 
     }
     split_items: dict[str, list[str]] = {}
     errors: list[str] = []
+    missing_required_splits: list[str] = []
     declared_splits = set(entry.get("splits", {}))
     for split in ("train", "test", "hcval"):
         count_key = f"{split}_count"
         sha_key = f"{split}_list_sha256"
         split_items[split] = []
         try:
+            spec = split_spec(entry, split)
             path = split_path(dataset_dir, dataset_name, split, registry_path)
         except KeyError:
             summary[count_key] = 0
@@ -105,7 +116,8 @@ def run_preflight(dataset_dir: Path, dataset_name: str, registry_path: Path) -> 
         if not path.exists():
             summary[count_key] = 0
             summary[sha_key] = None
-            if split in declared_splits:
+            if split in declared_splits and bool(spec.get("required", False)):
+                missing_required_splits.append(split)
                 errors.append(f"missing_{split}_list")
             continue
         items = _read_list(path, entry)
@@ -116,21 +128,35 @@ def run_preflight(dataset_dir: Path, dataset_name: str, registry_path: Path) -> 
         if expected is not None and int(expected) != len(items):
             errors.append(f"{split}_count_expected_{expected}_got_{len(items)}")
 
+    summary["missing_required_splits"] = missing_required_splits
+    summary["missing_hcval_list"] = "hcval" in missing_required_splits
+    if summary["missing_hcval_list"]:
+        summary["next_allowed_gate"] = "Gate-CGA-v2-P1A-NUDT-HCVal-List-Source-Audit"
+
     train_set = set(split_items.get("train", []))
     test_set = set(split_items.get("test", []))
-    all_items = split_items.get("train", []) + split_items.get("test", []) + split_items.get("hcval", [])
-    counts = Counter(all_items)
-    unique_items = sorted(counts)
+    hcval_set = set(split_items.get("hcval", []))
+    split_duplicate_count = 0
+    for items in split_items.values():
+        split_counts = Counter(items)
+        split_duplicate_count += sum(v - 1 for v in split_counts.values() if v > 1)
+    unique_items = sorted(train_set | test_set | hcval_set)
     summary["train_test_overlap_count"] = len(train_set & test_set)
-    summary["duplicate_item_count"] = sum(v - 1 for v in counts.values() if v > 1)
+    summary["train_hcval_overlap_count"] = len(train_set & hcval_set)
+    summary["test_hcval_overlap_count"] = len(test_set & hcval_set)
+    summary["duplicate_item_count"] = split_duplicate_count
     if summary["train_test_overlap_count"]:
         errors.append("train_test_overlap")
+    if summary["train_hcval_overlap_count"]:
+        errors.append("train_hcval_overlap")
     if summary["duplicate_item_count"]:
-        errors.append("duplicate_items")
+        errors.append("duplicate_items_within_split")
 
     aggregate = {
         "missing_images": 0,
         "missing_masks": 0,
+        "zero_byte_images": 0,
+        "zero_byte_masks": 0,
         "unreadable_images": 0,
         "unreadable_masks": 0,
         "size_mismatch": 0,
@@ -146,11 +172,20 @@ def run_preflight(dataset_dir: Path, dataset_name: str, registry_path: Path) -> 
                 examples[key].append(item_id)
     summary.update(aggregate)
     summary["examples"] = examples
+    summary["zero_byte_examples"] = sorted(
+        set(examples.get("zero_byte_images", []) + examples.get("zero_byte_masks", []))
+    )
     for key, value in aggregate.items():
         if value:
             errors.append(key)
     summary["gate_pass"] = not errors
-    summary["decision"] = "DATASET_PREFLIGHT_PASS" if summary["gate_pass"] else "STOP_NEW_REPO_CGA_V2_AT_DATASET_PREFLIGHT"
+    if summary["gate_pass"]:
+        decision = "DATASET_PREFLIGHT_PASS"
+    elif aggregate["zero_byte_images"] or aggregate["zero_byte_masks"]:
+        decision = "STOP_DATASET_DUE_TO_ZERO_BYTE_FILES"
+    else:
+        decision = "STOP_NEW_REPO_CGA_V2_AT_DATASET_PREFLIGHT"
+    summary["decision"] = decision
     summary["errors"] = errors
     return summary
 

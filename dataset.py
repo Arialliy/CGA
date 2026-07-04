@@ -17,6 +17,18 @@ REGISTRY_PATH = Path(__file__).resolve().parent / "configs" / "datasets.yaml"
 REQUIRED_SPLITS = {"train", "test"}
 
 
+def split_spec(entry: dict[str, Any], split: str) -> dict[str, Any]:
+    raw = entry.get("splits", {}).get(split)
+    if not raw:
+        raise KeyError(f"Dataset {entry.get('name', '<unknown>')!r} has no split {split!r} in registry")
+    if isinstance(raw, dict):
+        spec = dict(raw)
+    else:
+        spec = {"file": raw}
+    spec.setdefault("required", split in REQUIRED_SPLITS)
+    return spec
+
+
 def sha256_file(path: str | Path) -> str:
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -61,9 +73,7 @@ def split_path(
     registry_path: str | Path | None = None,
 ) -> Path:
     entry = get_dataset_entry(dataset_name, registry_path)
-    split_file = entry.get("splits", {}).get(split)
-    if not split_file:
-        raise KeyError(f"Dataset {dataset_name!r} has no split {split!r} in registry")
+    split_file = split_spec(entry, split)["file"]
     return dataset_root(dataset_dir, dataset_name, registry_path) / str(entry["list_dir"]) / str(split_file)
 
 
@@ -103,7 +113,7 @@ def read_split_items(
     entry = get_dataset_entry(dataset_name, registry_path)
     path = split_path(dataset_dir, dataset_name, split, registry_path)
     if required is None:
-        required = split in REQUIRED_SPLITS
+        required = bool(split_spec(entry, split).get("required", split in REQUIRED_SPLITS))
     if not path.exists():
         if required:
             raise FileNotFoundError(f"Missing {dataset_name} {split} list: {path}")
