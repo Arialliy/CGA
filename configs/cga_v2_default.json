@@ -12,7 +12,7 @@
     "lambda_boundary": 0.03,
     "lambda_scale": 0.02,
     "lambda_peak": 0.03,
-    "start_epoch": 1,
+    "start_epoch": 20,
     "ramp_epochs": 40
   }
 }

@@ -1,0 +1,224 @@
+{
+  "actionable_mismatch_found": true,
+  "allowed_fix_scope": [
+    "restore_frozen_cga_loss_schedule_only",
+    "restore_frozen_split_lists_only"
+  ],
+  "audit_complete": true,
+  "blocking_errors": [],
+  "dataset": "NUDT-SIRST",
+  "dataset_split_identity": {
+    "actual": {
+      "dataset_root": "/home/AAAI/OHCM-MSHNet-main/datasets/NUDT-SIRST",
+      "hcval": {
+        "count": 6,
+        "exists": true,
+        "path": "/home/AAAI/OHCM-MSHNet-main/datasets/NUDT-SIRST/img_idx/hcval_NUDT-SIRST.txt",
+        "preflight_count": 6,
+        "preflight_sha256": "bb0cd989def5651f222ae5d3d7d3fd400364a9e016b22dceb95258895fd4f85e",
+        "sha256": "bb0cd989def5651f222ae5d3d7d3fd400364a9e016b22dceb95258895fd4f85e"
+      },
+      "test": {
+        "count": 664,
+        "exists": true,
+        "path": "/home/AAAI/OHCM-MSHNet-main/datasets/NUDT-SIRST/img_idx/test_NUDT-SIRST.txt",
+        "preflight_count": 664,
+        "preflight_sha256": "a463c52ee64b1c803c4a322fe090aaf6bc360844898e3943bb7c64a8e551b86e",
+        "sha256": "a463c52ee64b1c803c4a322fe090aaf6bc360844898e3943bb7c64a8e551b86e"
+      },
+      "train": {
+        "count": 697,
+        "exists": true,
+        "path": "/home/AAAI/OHCM-MSHNet-main/datasets/NUDT-SIRST/img_idx/train_NUDT-SIRST.txt",
+        "preflight_count": 663,
+        "preflight_sha256": "e0a79f7c3d42548ba7d7dad9d2d336012b63a6bc5081e89e286f0f45036f8ec3",
+        "sha256": "22e444fe81b6b4d77f1b6537b1de37c3949d864a1ed071e83fe1ecebe9480eac"
+      }
+    },
+    "frozen_train_reference": {
+      "candidates": [
+        {
+          "count": 697,
+          "path": "/home/AAAI/OHCM-MSHNet-1/datasets/NUDT-SIRST/img_idx/train_NUDT-SIRST.txt",
+          "sha256": "22e444fe81b6b4d77f1b6537b1de37c3949d864a1ed071e83fe1ecebe9480eac"
+        },
+        {
+          "count": 697,
+          "path": "/home/AAAI/BasicIRSTD-main1/datasets/NUDT-SIRST/img_idx/train_NUDT-SIRST.txt",
+          "sha256": "22e444fe81b6b4d77f1b6537b1de37c3949d864a1ed071e83fe1ecebe9480eac"
+        },
+        {
+          "count": 697,
+          "path": "/home/AAAI/Reemm/datasets/NUDT-SIRST/img_idx/train_NUDT-SIRST.txt",
+          "sha256": "22e444fe81b6b4d77f1b6537b1de37c3949d864a1ed071e83fe1ecebe9480eac"
+        }
+      ],
+      "selected": {
+        "count": 697,
+        "path": "/home/AAAI/OHCM-MSHNet-1/datasets/NUDT-SIRST/img_idx/train_NUDT-SIRST.txt",
+        "sha256": "22e444fe81b6b4d77f1b6537b1de37c3949d864a1ed071e83fe1ecebe9480eac"
+      }
+    },
+    "preflight": {
+      "hcval_count": 6,
+      "hcval_list_sha256": "bb0cd989def5651f222ae5d3d7d3fd400364a9e016b22dceb95258895fd4f85e",
+      "test_count": 664,
+      "test_list_sha256": "a463c52ee64b1c803c4a322fe090aaf6bc360844898e3943bb7c64a8e551b86e",
+      "train_count": 663,
+      "train_list_sha256": "e0a79f7c3d42548ba7d7dad9d2d336012b63a6bc5081e89e286f0f45036f8ec3"
+    }
+  },
+  "decision": "P2B_IMPL_MISMATCH_PATCHED_RERUN_P1_P2_ONCE",
+  "gate": "Gate-CGA-v2-P2B-protocol-diff-audit",
+  "historical_sanity_reference_only": {
+    "delta": {
+      "full_mIoU": 0.08964997421452758,
+      "hcval_mIoU": 0.2508245541003554
+    },
+    "historical_ohem": {
+      "full_mIoU": 0.8343498886629878,
+      "hcval_mIoU": 0.6047904191616766
+    },
+    "new_repo_ohem": {
+      "full_mIoU": 0.9239998628775153,
+      "hcval_mIoU": 0.8556149732620321
+    },
+    "used_as_new_repo_evidence": false
+  },
+  "loss_config_identity": {
+    "current_code_loss_config": {
+      "lambda_boundary": 0.03,
+      "lambda_center": 0.05,
+      "lambda_peak": 0.03,
+      "lambda_scale": 0.02,
+      "ramp_epochs": 40,
+      "start_epoch": 20
+    },
+    "frozen_plan": {
+      "content": {
+        "branch": "aaai_cga_v2_from_archive",
+        "does_not_reopen": [
+          "TWA",
+          "TCSR",
+          "TCE",
+          "LateSnapshot",
+          "PosthocSeedCheckpoint",
+          "PFR",
+          "ERD",
+          "ECDV",
+          "MSCV",
+          "BCV",
+          "OHCMMSHNetFull"
+        ],
+        "forbidden": [
+          "lambda tuning",
+          "seed switch before Gate-C pass",
+          "threshold search",
+          "external/blind use before internal gates",
+          "SIRST3 mask imputation"
+        ],
+        "frozen_loss": {
+          "base": "MSHNetOHEM",
+          "lambda_boundary": 0.03,
+          "lambda_center": 0.05,
+          "lambda_peak": 0.03,
+          "lambda_scale": 0.02,
+          "ramp_epochs": 40,
+          "start_epoch": 20
+        },
+        "gates": {
+          "Gate-A": {
+            "script": "tools/official/check_cga_v2_target_gate_a.py",
+            "stop_if_fail": true
+          },
+          "Gate-B": {
+            "requires": "Gate-A pass",
+            "script": "tools/official/check_cga_v2_activation_gate_b.py",
+            "stop_if_fail": true
+          },
+          "Gate-C": {
+            "epoch": 400,
+            "script": "tools/official/check_cga_v2_seed42_gate_c.py",
+            "seed": 42,
+            "stop_if_fail": "CGA_V2_STOP_NO_LAMBDA_SEED_THRESHOLD_TUNING"
+          }
+        },
+        "inference": {
+          "forward": "image -> MSHNetOHEM backbone/decoder -> final_logit -> sigmoid -> threshold 0.5",
+          "no_bn_recalibration": true,
+          "no_checkpoint_averaging": true,
+          "no_suppression_head": true,
+          "no_tta": true,
+          "no_verifier": true,
+          "threshold": 0.5
+        },
+        "method_name": "CGA-v2-MSHNet",
+        "model_name": "MSHNetCGA",
+        "status": "CGA_V2_TARGET_PRESERVATION_FIRST_ATTEMPT",
+        "training_auxiliary_heads": [
+          "center_head",
+          "boundary_head",
+          "scale_head",
+          "peak_head"
+        ]
+      },
+      "path": "/home/AAAI/OHCM-MSHNet-main/docs/internal/cga_v2/cga_v2_frozen_plan.json"
+    },
+    "p2a_recorded_loss_config": {
+      "build_cga_targets_called_by_loss": true,
+      "lambda_boundary": 0.03,
+      "lambda_center": 0.05,
+      "lambda_peak": 0.03,
+      "lambda_scale": 0.02,
+      "loss_terms_finite": true,
+      "loss_terms_present": true,
+      "ramp_epochs": 40,
+      "start_epoch": 1,
+      "target_config": {
+        "boundary_radius": 1,
+        "center_radius": 2,
+        "max_scale_area": 512.0,
+        "peak_radius": 1
+      },
+      "target_generation_sample": {
+        "available": true,
+        "boundary_target_not_full_image": true,
+        "center_target_finite": true,
+        "mask_shape": [
+          1,
+          1,
+          256,
+          256
+        ],
+        "peak_target_sparse": true,
+        "sample_item": "001137",
+        "scale_target_normalized": true,
+        "target_maps_non_empty": true,
+        "target_maps_same_spatial_size": true,
+        "target_sums": {
+          "cga_boundary_target": 24.0,
+          "cga_center_target": 25.0,
+          "cga_foreground_target": 9.0,
+          "cga_peak_target": 49.0,
+          "cga_scale_target": 0.158203125
+        }
+      }
+    }
+  },
+  "mismatch_categories": [
+    "loss_config_mismatch",
+    "split_identity_mismatch"
+  ],
+  "p2_decision": "P2_FAIL_IMPL_AUDIT_ALLOWED",
+  "p2_summary": "docs/internal/cga_v2/gate_p2_seed42_NUDT-SIRST/summary.json",
+  "p2a_decision": "P2A_IMPL_MISMATCH_FOUND_RERUN_P1_P2_ALLOWED",
+  "p2a_summary": "docs/internal/cga_v2/gate_p2_impl_audit_NUDT-SIRST/summary.json",
+  "patch_status": {
+    "loss_config_mismatch_patched": true,
+    "split_identity_mismatch_patched": true
+  },
+  "preflight_summary": "docs/internal/cga_v2/dataset_preflight/NUDT-SIRST/summary.json",
+  "rerun_p1_p2_once_allowed": true,
+  "seed": 42,
+  "summary_identity_errors": []
+}

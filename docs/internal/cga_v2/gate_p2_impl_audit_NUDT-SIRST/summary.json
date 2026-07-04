@@ -1,0 +1,269 @@
+{
+  "audit_complete": true,
+  "audit_scope": [
+    "dataset_split_identity",
+    "eval_split_identity",
+    "ohem_anchor_identity",
+    "cga_identity",
+    "cga_loss_target_identity",
+    "checkpoint_identity",
+    "metric_identity"
+  ],
+  "baseline": "MSHNetOHEM",
+  "candidate": "MSHNetCGA",
+  "cga_identity": {
+    "auxiliary_heads_active_in_training": true,
+    "base_segmentation_path_active": true,
+    "eval_output_uses_final_logit_only": true,
+    "eval_uses_sigmoid_threshold": true,
+    "model_name": "MSHNetCGA",
+    "no_aux_output_in_test_metric": true
+  },
+  "cga_loss_and_target_audit": {
+    "build_cga_targets_called_by_loss": true,
+    "lambda_boundary": 0.03,
+    "lambda_center": 0.05,
+    "lambda_peak": 0.03,
+    "lambda_scale": 0.02,
+    "loss_terms_finite": true,
+    "loss_terms_present": true,
+    "ramp_epochs": 40,
+    "start_epoch": 1,
+    "target_config": {
+      "boundary_radius": 1,
+      "center_radius": 2,
+      "max_scale_area": 512.0,
+      "peak_radius": 1
+    },
+    "target_generation_sample": {
+      "available": true,
+      "boundary_target_not_full_image": true,
+      "center_target_finite": true,
+      "mask_shape": [
+        1,
+        1,
+        256,
+        256
+      ],
+      "peak_target_sparse": true,
+      "sample_item": "001137",
+      "scale_target_normalized": true,
+      "target_maps_non_empty": true,
+      "target_maps_same_spatial_size": true,
+      "target_sums": {
+        "cga_boundary_target": 24.0,
+        "cga_center_target": 25.0,
+        "cga_foreground_target": 9.0,
+        "cga_peak_target": 49.0,
+        "cga_scale_target": 0.158203125
+      }
+    }
+  },
+  "checkpoint_epoch": 400,
+  "dataset": "NUDT-SIRST",
+  "dataset_name": "NUDT-SIRST",
+  "dataset_split_identity": {
+    "DATASET_DIR": "/home/AAAI/OHCM-MSHNet-main/datasets",
+    "DATASET_NAME": "NUDT-SIRST",
+    "dataset_root": "/home/AAAI/OHCM-MSHNet-main/datasets/NUDT-SIRST",
+    "dataset_spec_sha256": "35a47e28b8063cf5353c5d2caabce08b141731e079abad8591a0a27d24bae188",
+    "duplicate_item_count": 0,
+    "hcval_count": 6,
+    "hcval_list_path": "/home/AAAI/OHCM-MSHNet-main/datasets/NUDT-SIRST/img_idx/hcval_NUDT-SIRST.txt",
+    "hcval_list_sha256": "bb0cd989def5651f222ae5d3d7d3fd400364a9e016b22dceb95258895fd4f85e",
+    "p1_decision": "DATASET_PREFLIGHT_PASS",
+    "p1_gate_pass": true,
+    "test_count": 664,
+    "test_list_path": "/home/AAAI/OHCM-MSHNet-main/datasets/NUDT-SIRST/img_idx/test_NUDT-SIRST.txt",
+    "test_list_sha256": "a463c52ee64b1c803c4a322fe090aaf6bc360844898e3943bb7c64a8e551b86e",
+    "train_count": 663,
+    "train_list_path": "/home/AAAI/OHCM-MSHNet-main/datasets/NUDT-SIRST/img_idx/train_NUDT-SIRST.txt",
+    "train_list_sha256": "e0a79f7c3d42548ba7d7dad9d2d336012b63a6bc5081e89e286f0f45036f8ec3",
+    "train_test_overlap_count": 0
+  },
+  "decision": "P2A_IMPL_MISMATCH_FOUND_RERUN_P1_P2_ALLOWED",
+  "eval_split_identity": {
+    "full": {
+      "baseline": {
+        "checkpoint": "/home/AAAI/cga_v2_repo_grade_code_overlay/results/official/MSHNetOHEM/seed42/NUDT-SIRST/MSHNetOHEM_400.pth.tar",
+        "checkpoint_epoch": 400,
+        "checkpoint_sha256": "b15986f56629e04e333de7e9c7045a5794508171d9eab9d1b73083793a731464",
+        "dataset": "NUDT-SIRST",
+        "expected_model": "MSHNetOHEM",
+        "expected_prediction_count": 664,
+        "expected_split": "test",
+        "label": "full_baseline",
+        "model": "MSHNetOHEM",
+        "prediction_count": 664,
+        "required_metrics_present": true,
+        "seed": 42,
+        "split": "test",
+        "threshold": 0.5
+      },
+      "candidate": {
+        "checkpoint": "/home/AAAI/cga_v2_repo_grade_code_overlay/results/official/MSHNetCGA/seed42/NUDT-SIRST/MSHNetCGA_400.pth.tar",
+        "checkpoint_epoch": 400,
+        "checkpoint_sha256": "510ed12945116eafe54c15df2496df0d7bb4a4f777e5f11a83696ecd56c1bc29",
+        "dataset": "NUDT-SIRST",
+        "expected_model": "MSHNetCGA",
+        "expected_prediction_count": 664,
+        "expected_split": "test",
+        "label": "full_candidate",
+        "model": "MSHNetCGA",
+        "prediction_count": 664,
+        "required_metrics_present": true,
+        "seed": 42,
+        "split": "test",
+        "threshold": 0.5
+      },
+      "evaluated_images": 664,
+      "list_hash": "a463c52ee64b1c803c4a322fe090aaf6bc360844898e3943bb7c64a8e551b86e"
+    },
+    "hcval": {
+      "available": true,
+      "baseline": {
+        "checkpoint": "/home/AAAI/cga_v2_repo_grade_code_overlay/results/official/MSHNetOHEM/seed42/NUDT-SIRST/MSHNetOHEM_400.pth.tar",
+        "checkpoint_epoch": 400,
+        "checkpoint_sha256": "b15986f56629e04e333de7e9c7045a5794508171d9eab9d1b73083793a731464",
+        "dataset": "NUDT-SIRST",
+        "expected_model": "MSHNetOHEM",
+        "expected_prediction_count": 6,
+        "expected_split": "hcval",
+        "label": "hcval_baseline",
+        "model": "MSHNetOHEM",
+        "prediction_count": 6,
+        "required_metrics_present": true,
+        "seed": 42,
+        "split": "hcval",
+        "threshold": 0.5
+      },
+      "candidate": {
+        "checkpoint": "/home/AAAI/cga_v2_repo_grade_code_overlay/results/official/MSHNetCGA/seed42/NUDT-SIRST/MSHNetCGA_400.pth.tar",
+        "checkpoint_epoch": 400,
+        "checkpoint_sha256": "510ed12945116eafe54c15df2496df0d7bb4a4f777e5f11a83696ecd56c1bc29",
+        "dataset": "NUDT-SIRST",
+        "expected_model": "MSHNetCGA",
+        "expected_prediction_count": 6,
+        "expected_split": "hcval",
+        "label": "hcval_candidate",
+        "model": "MSHNetCGA",
+        "prediction_count": 6,
+        "required_metrics_present": true,
+        "seed": 42,
+        "split": "hcval",
+        "threshold": 0.5
+      },
+      "evaluated_images": 6,
+      "list_hash": "bb0cd989def5651f222ae5d3d7d3fd400364a9e016b22dceb95258895fd4f85e"
+    },
+    "image_resize_policy": "test loader pads/crops to original size",
+    "mask_policy": "gt mask is binary via gt > 0",
+    "metric_threshold": 0.5,
+    "prediction_resize_policy": "crop final probability map to original size before metrics"
+  },
+  "gate": "Gate-CGA-v2-P2A-seed42-implementation-audit",
+  "gate_pass": true,
+  "incomplete_items": [],
+  "metric_identity": {
+    "binary_gt_policy": "gt_mask > 0",
+    "binary_prediction_policy": "pred_prob > threshold",
+    "component_fp_metric": "8-connected component count after target matching",
+    "foreground_threshold": 0.5,
+    "metrics": [
+      "mIoU",
+      "nIoU",
+      "Precision",
+      "Recall",
+      "F1",
+      "Pd",
+      "FA",
+      "FA_ppm",
+      "FP_components"
+    ]
+  },
+  "mismatches": [
+    "ohem_full_miou_outside_historical_sanity",
+    "ohem_hcval_miou_outside_historical_sanity"
+  ],
+  "next_allowed_action": "fix_only_identified_mismatch_then_rerun_P1_and_one_seed42_P2_once",
+  "ohem_anchor_identity": {
+    "auxiliary_heads_disabled": true,
+    "cga_target_generation_disabled": true,
+    "checkpoint_path_under_official_seed_dataset": "results/official/MSHNetOHEM/seed42/NUDT-SIRST/",
+    "historical_anchor_sanity": {
+      "full_mIoU": 0.9239998628775153,
+      "full_within_sanity_range": false,
+      "hcval_mIoU": 0.8556149732620321,
+      "hcval_within_sanity_range": false,
+      "historical_reference": {
+        "full_mIoU": {
+          "max": 0.87,
+          "min": 0.8,
+          "reference": 0.83435
+        },
+        "hcval_mIoU": {
+          "max": 0.66,
+          "min": 0.55,
+          "reference": 0.60479
+        }
+      },
+      "mode": "sanity_reference_not_exact_requirement"
+    },
+    "loss_name": "MSHNetOHEMLoss",
+    "model_name": "MSHNetOHEM"
+  },
+  "p1_summary": "docs/internal/cga_v2/dataset_preflight/NUDT-SIRST/summary.json",
+  "p2_summary": "docs/internal/cga_v2/gate_p2_seed42_NUDT-SIRST/summary.json",
+  "p3_guard_status": {
+    "allowed": false,
+    "reason": "P2A_MISMATCH_FOUND_BUT_RERUN_P2_NOT_PASS"
+  },
+  "seed": 42,
+  "threshold": 0.5,
+  "training_determinism_and_checkpoint_identity": {
+    "baseline_train_log": {
+      "epoch_matches": true,
+      "exists": true,
+      "last_epoch": 400,
+      "last_row": {
+        "dataset": "NUDT-SIRST",
+        "epoch": 400,
+        "model": "MSHNetOHEM",
+        "ohem": 0.00017275060844144444,
+        "scale": 0.0,
+        "seed": 42,
+        "soft_iou": 0.0009682141950091695,
+        "total": 0.0011409648117785172
+      },
+      "path": "/home/AAAI/cga_v2_repo_grade_code_overlay/results/official/MSHNetOHEM/seed42/NUDT-SIRST/train_log.jsonl"
+    },
+    "candidate_train_log": {
+      "epoch_matches": true,
+      "exists": true,
+      "last_epoch": 400,
+      "last_row": {
+        "base_total": 0.0009653378928557785,
+        "cga_boundary": 0.00010677840248948098,
+        "cga_center": 0.0005330660942162061,
+        "cga_peak": 0.0009013078507198671,
+        "cga_scale": 0.00022486288991829673,
+        "cga_w": 1.0,
+        "dataset": "NUDT-SIRST",
+        "epoch": 400,
+        "model": "MSHNetCGA",
+        "ohem": 0.000150112721860433,
+        "scale": 0.0,
+        "seed": 42,
+        "soft_iou": 0.0008152251658506736,
+        "total": 0.0010267310480921
+      },
+      "path": "/home/AAAI/cga_v2_repo_grade_code_overlay/results/official/MSHNetCGA/seed42/NUDT-SIRST/train_log.jsonl"
+    },
+    "checkpoint_epoch": 400,
+    "cuda_seed_set_in_train_py": true,
+    "cudnn_benchmark": true,
+    "cudnn_deterministic": false,
+    "seed": 42,
+    "torch_seed_set_in_train_py": true
+  }
+}

@@ -2,10 +2,12 @@
   "dataset_name": "NUDT-SIRST",
   "dataset_registry_sha256": "35a47e28b8063cf5353c5d2caabce08b141731e079abad8591a0a27d24bae188",
   "dataset_root": "/home/AAAI/OHCM-MSHNet-main/datasets/NUDT-SIRST",
-  "decision": "DATASET_PREFLIGHT_PASS",
+  "decision": "STOP_NEW_REPO_CGA_V2_AT_DATASET_PREFLIGHT",
   "duplicate_item_count": 0,
   "empty_mask_files": 0,
-  "errors": [],
+  "errors": [
+    "train_test_overlap"
+  ],
   "examples": {
     "empty_mask_files": [],
     "illegal_mask_value_files": [],
@@ -18,7 +20,7 @@
     "zero_byte_masks": []
   },
   "gate": "Gate-CGA-v2-P1-dataset-preflight",
-  "gate_pass": true,
+  "gate_pass": false,
   "hcval_count": 6,
   "hcval_list_sha256": "bb0cd989def5651f222ae5d3d7d3fd400364a9e016b22dceb95258895fd4f85e",
   "illegal_mask_value_files": 0,
@@ -30,10 +32,10 @@
   "test_count": 664,
   "test_hcval_overlap_count": 6,
   "test_list_sha256": "a463c52ee64b1c803c4a322fe090aaf6bc360844898e3943bb7c64a8e551b86e",
-  "train_count": 663,
+  "train_count": 697,
   "train_hcval_overlap_count": 0,
-  "train_list_sha256": "e0a79f7c3d42548ba7d7dad9d2d336012b63a6bc5081e89e286f0f45036f8ec3",
-  "train_test_overlap_count": 0,
+  "train_list_sha256": "22e444fe81b6b4d77f1b6537b1de37c3949d864a1ed071e83fe1ecebe9480eac",
+  "train_test_overlap_count": 34,
   "unreadable_images": 0,
   "unreadable_masks": 0,
   "zero_byte_examples": [],

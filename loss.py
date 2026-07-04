@@ -111,7 +111,7 @@ class CGALossConfig:
     lambda_boundary: float = 0.03
     lambda_scale: float = 0.02
     lambda_peak: float = 0.03
-    start_epoch: int = 1
+    start_epoch: int = 20
     ramp_epochs: int = 40
     ohem_ratio: float = 0.01
     lambda_iou: float = 1.0

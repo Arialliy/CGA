@@ -1,0 +1,22 @@
+{
+  "allowed_actions": [
+    "read summaries",
+    "compare dataset split identity",
+    "compare metric identity",
+    "compare model/loss/eval identity",
+    "produce protocol diff report",
+    "allow one P1/P2 rerun only if actionable mismatch is found"
+  ],
+  "forbidden_actions": [
+    "seed43/44",
+    "NUAA-SIRST",
+    "IRSTD-1K",
+    "architecture tuning",
+    "loss tuning except restoring intended frozen config",
+    "threshold search",
+    "checkpoint search",
+    "seed search"
+  ],
+  "gate": "Gate-CGA-v2-P2B-protocol-diff-audit",
+  "purpose": "Identify protocol or implementation identity mismatches after P2 seed42 failure and P2A OHEM-anchor sanity mismatch."
+}

@@ -16,10 +16,12 @@ if [[ ! -f "${SEED42_SUMMARY}" ]]; then
   exit 1
 fi
 "${PYTHON}" - "$SEED42_SUMMARY" <<'PY'
-import json, sys
-row = json.load(open(sys.argv[1], encoding="utf-8"))
-if not row.get("gate_pass"):
-    raise SystemExit("P2 seed42 gate did not pass; stop before P3.")
+import json
+import sys
+
+p2 = json.load(open(sys.argv[1], encoding="utf-8"))
+if p2.get("gate_pass") is not True:
+    raise SystemExit("Latest P2 seed42 gate did not pass; stop before P3.")
 PY
 
 for seed in 43 44; do

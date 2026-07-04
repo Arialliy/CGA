@@ -1,0 +1,18 @@
+{
+  "audit_scope": [
+    "dataset_split_identity",
+    "eval_split_identity",
+    "ohem_anchor_identity",
+    "cga_identity",
+    "cga_loss_target_identity",
+    "checkpoint_identity",
+    "metric_identity"
+  ],
+  "baseline": "MSHNetOHEM",
+  "candidate": "MSHNetCGA",
+  "checkpoint_epoch": 400,
+  "dataset": "NUDT-SIRST",
+  "gate": "Gate-CGA-v2-P2A-seed42-implementation-audit",
+  "seed": 42,
+  "threshold": 0.5
+}
